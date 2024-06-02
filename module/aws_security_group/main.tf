@@ -8,6 +8,7 @@ resource "aws_security_group" "sg_custom" {
     cidr_blocks = var.egress_group_rules.cidr_blocks
   }
 
+
   dynamic "ingress" {
     for_each = var.ingress_group_rules
     content {

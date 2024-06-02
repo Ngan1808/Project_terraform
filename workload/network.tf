@@ -51,3 +51,35 @@ module "aws_ec2" {
   key_name = "mainkey"
   name = "ec2-worker0"
 }
+
+module "aws_eip" {
+  source = "../module/aws_eip"
+  ig_name = module.aws_ig.name
+}
+
+module "aws_nat_gateway" {
+  source = "../module/aws_nat_gateway"
+  allocation_id = module.aws_eip.eip_id
+  subnet_id = module.aws_subnet.subnet_id
+  ig_name = module.aws_ig.name
+  name = "NAT 1"
+}
+
+module "aws_s3_bucket" {
+  source = "../module/aws_s3"
+  bucket = "bucket"
+  name_tag = "custom_bucket"
+  environment = "Dev"
+}
+
+module "aws_rds" {
+  source = "../module/aws_rds"
+  allocated_storage = 10
+  db_name = "my_db"
+  engine = "mysql"
+  engine_version = "8.0"
+  instance_class = "db.t3.micro"
+  parameter_group_name = "default.mysql8.0"
+  username = "tannd"
+  password = "Tan12345"
+}

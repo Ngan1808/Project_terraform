@@ -22,7 +22,9 @@ variable "vpc_id" {
 }
 
 variable "name" {
+
   description = "Name tag of Subnet"
   type = string
   default = "10.0.2.0 - us-east-1a"
+  
 }
