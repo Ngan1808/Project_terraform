@@ -83,3 +83,20 @@ module "aws_rds" {
   username = "tannd"
   password = "Tan12345"
 }
+
+module "aws_kms" {
+  source = "../modules/aws_kms"
+  create                       = var.create
+  tags                         = var.tags
+  description                  = var.description
+  deletion_window_in_days      = var.deletion_window_in_days
+  enable_key_rotation          = var.enable_key_rotation
+  is_enabled                   = var.is_enabled
+  policy                       = var.policy
+  multi_region                 = var.multi_region
+  aliases                      = var.aliases
+  aliases_use_name_prefix      = var.aliases_use_name_prefix
+  grants                       = var.grants
+
+}
+
