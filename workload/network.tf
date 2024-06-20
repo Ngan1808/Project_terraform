@@ -85,7 +85,7 @@ module "aws_rds" {
 }
 
 module "aws_kms" {
-  source = "../modules/aws_kms"
+  source = "../module/aws_kms"
   create                       = var.create
   tags                         = var.tags
   description                  = var.description
