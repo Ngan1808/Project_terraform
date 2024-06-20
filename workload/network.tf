@@ -86,12 +86,12 @@ module "aws_rds" {
 
 module "aws_kms" {
   source = "../module/aws_kms"
-  create                       = var.create
-  tags                         = var.tags
-  description                  = var.description
-  deletion_window_in_days      = var.deletion_window_in_days
-  enable_key_rotation          = var.enable_key_rotation
-  is_enabled                   = var.is_enabled
+  aws_kms_key                  = var.create
+  aws_kms_external_key         = var.tags
+  aws_kms_replica_key          = var.description
+  aws_kms_replica_external_key = var.deletion_window_in_days
+  aws_kms_alias                = var.enable_key_rotation
+  aws_kms_grant                = var.is_enabled
   policy                       = var.policy
   multi_region                 = var.multi_region
   aliases                      = var.aliases
