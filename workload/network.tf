@@ -86,18 +86,17 @@ module "aws_rds" {
 
 module "aws_kms" {
   source = "../module/aws_kms"
-  kms_key_id                       = var.create
-  kms_key_arn                      = var.tags
-  kms_external_key_id              = var.description
-  kms_key_policy                   = var.deletion_window_in_days
-  kms_key_alias                    = var.enable_key_rotation
-  kms_grant                        = var.is_enabled
-  kms_external_key_arn             = var.policy
-  kms_replica_key_id               = var.multi_region
-  kms_replica_key_arn              = var.aliases
-  kms_replica_external_key_id      = var.aliases_use_name_prefix
-  kms_replica_external_key_arn     = var.grants
-  kms_aliases                      = 
+  kms_key_id                       = module.aws_kms.kms_key_id
+  kms_key_arn                      = "arn:aws:kms:us-east-1:992382486985:alias/mainkey"
+  kms_external_key_id              = aws_kms_external_key.this[0].key_id
+  kms_key_alias                    = "mainkey"
+  kms_key_alias                    = aws_kms_alias.this["mainkey"].target_key_id
+  kms_grant                        = aws_kms_grant.this
+  kms_external_key_arn             = aws_kms_external_key.this[0].arn
+  kms_replica_key_id               = aws_kms_replica_key.this[0].key_id
+  kms_replica_key_arn              = aws_kms_replica_key.this[0].arn
+  kms_replica_external_key_id      = aws_kms_replica_external_key.this[0].id
+  kms_replica_external_key_arn     = aws_kms_replica_external_key.this[0].arn
 
 }
 
