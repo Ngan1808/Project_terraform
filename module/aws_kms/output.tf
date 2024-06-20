@@ -1,43 +1,65 @@
-output "key_arn" {
-  description = "ARN of the key"
-  value       = try(aws_kms_key.this[0].arn, aws_kms_external_key.this[0].arn, aws_kms_replica_key.this[0].arn, aws_kms_replica_external_key.this[0].arn, null)
+# Outputs for AWS KMS Key
+output "kms_key_id" {
+  description = "The ID of the AWS KMS key"
+  value       = aws_kms_key.this[0].key_id
 }
 
-output "key_id" {
-  description = "The globally unique identifier for the key"
-  value       = try(aws_kms_key.this[0].key_id, aws_kms_external_key.this[0].id, aws_kms_replica_key.this[0].key_id, aws_kms_replica_external_key.this[0].key_id, null)
+output "kms_key_arn" {
+  description = "The ARN of the AWS KMS key"
+  value       = aws_kms_key.this[0].arn
 }
 
-output "key_policy" {
-  description = "The IAM resource policy set on the key"
-  value       = try(aws_kms_key.this[0].policy, aws_kms_external_key.this[0].policy, aws_kms_replica_key.this[0].policy, aws_kms_replica_external_key.this[0].policy, null)
+output "kms_key_alias" {
+  description = "The alias of the AWS KMS key"
+  value       = aws_kms_alias.this[0].id
 }
 
-output "external_key_expiration_model" {
-  description = "Whether the key material expires. Empty when pending key material import, otherwise `KEY_MATERIAL_EXPIRES` or `KEY_MATERIAL_DOES_NOT_EXPIRE`"
-  value       = try(aws_kms_external_key.this[0].expiration_model, aws_kms_replica_external_key.this[0].expiration_model, null)
+output "kms_key_policy" {
+  description = "The policy JSON of the AWS KMS key"
+  value       = aws_kms_key.this[0].policy
 }
 
-output "external_key_state" {
-  description = "The state of the CMK"
-  value       = try(aws_kms_external_key.this[0].key_state, aws_kms_replica_external_key.this[0].key_state, null)
+# Outputs for AWS KMS External Key
+output "kms_external_key_id" {
+  description = "The ID of the AWS KMS external key"
+  value       = aws_kms_external_key.this[0].id
 }
 
-output "external_key_usage" {
-  description = "The cryptographic operations for which you can use the CMK"
-  value       = try(aws_kms_external_key.this[0].key_usage, aws_kms_replica_external_key.this[0].key_usage, null)
+output "kms_external_key_arn" {
+  description = "The ARN of the AWS KMS external key"
+  value       = aws_kms_external_key.this[0].arn
 }
 
-# Alias
-output "aliases" {
-  description = "A map of aliases created and their attributes"
-  value       = aws_kms_alias.this
+# Outputs for AWS KMS Replica Key
+output "kms_replica_key_id" {
+  description = "The ID of the AWS KMS replica key"
+  value       = aws_kms_replica_key.this[0].key_id
 }
 
+output "kms_replica_key_arn" {
+  description = "The ARN of the AWS KMS replica key"
+  value       = aws_kms_replica_key.this[0].arn
+}
 
-# Grant
-output "grants" {
-  description = "A map of grants created and their attributes"
+# Outputs for AWS KMS Replica External Key
+output "kms_replica_external_key_id" {
+  description = "The ID of the AWS KMS replica external key"
+  value       = aws_kms_replica_external_key.this[0].id
+}
+
+output "kms_replica_external_key_arn" {
+  description = "The ARN of the AWS KMS replica external key"
+  value       = aws_kms_replica_external_key.this[0].arn
+}
+
+# Outputs for AWS KMS Grants
+output "kms_grants" {
+  description = "Map of AWS KMS grants"
   value       = aws_kms_grant.this
-  sensitive   = true
+}
+
+# Outputs for AWS KMS Aliases
+output "kms_aliases" {
+  description = "Map of AWS KMS aliases"
+  value       = aws_kms_alias.this
 }
