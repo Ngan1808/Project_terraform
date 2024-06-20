@@ -86,17 +86,18 @@ module "aws_rds" {
 
 module "aws_kms" {
   source = "../module/aws_kms"
-  aws_kms_key                  = var.create
-  aws_kms_external_key         = var.tags
-  aws_kms_replica_key          = var.description
-  aws_kms_replica_external_key = var.deletion_window_in_days
-  aws_kms_alias                = var.enable_key_rotation
-  aws_kms_grant                = var.is_enabled
-  policy                       = var.policy
-  multi_region                 = var.multi_region
-  aliases                      = var.aliases
-  aliases_use_name_prefix      = var.aliases_use_name_prefix
-  grants                       = var.grants
+  kms_key_id                       = var.create
+  kms_key_arn                      = var.tags
+  kms_external_key_id              = var.description
+  kms_key_policy                   = var.deletion_window_in_days
+  kms_key_alias                    = var.enable_key_rotation
+  kms_grant                        = var.is_enabled
+  kms_external_key_arn             = var.policy
+  kms_replica_key_id               = var.multi_region
+  kms_replica_key_arn              = var.aliases
+  kms_replica_external_key_id      = var.aliases_use_name_prefix
+  kms_replica_external_key_arn     = var.grants
+  kms_aliases                      = 
 
 }
 
