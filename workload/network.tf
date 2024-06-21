@@ -85,18 +85,44 @@ module "aws_rds" {
 }
 
 module "aws_kms" {
-  source = "../module/aws_kms"
-  kms_key_id                       = module.aws_kms.kms_key_id
-  kms_key_arn                      = "arn:aws:kms:us-east-1:992382486985:alias/mainkey"
-  kms_external_key_id              = aws_kms_external_key.this[0].key_id
-  kms_key_alias                    = "mainkey"
-  kms_key_alias                    = aws_kms_alias.this["mainkey"].target_key_id
-  kms_grant                        = aws_kms_grant.this
-  kms_external_key_arn             = aws_kms_external_key.this[0].arn
-  kms_replica_key_id               = aws_kms_replica_key.this[0].key_id
-  kms_replica_key_arn              = aws_kms_replica_key.this[0].arn
-  kms_replica_external_key_id      = aws_kms_replica_external_key.this[0].id
-  kms_replica_external_key_arn     = aws_kms_replica_external_key.this[0].arn
+  source = "../modules/aws_kms"
+  kms_key_id                       = "494abfbe-6d50-48e4-beae-dac96a1a9ee1"
+  kms_key_arn                      = "arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c"
 
+  description             = "Complete key showing various configurations available"
+  deletion_window_in_days = 7
+  enable_key_rotation     = true
+  is_enabled              = true
+  key_usage               = "ENCRYPT_DECRYPT"
+  multi_region            = false
+
+  key_owners             = ["arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c:role/owner"]
+  key_administrators     = ["arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c:role/admin"]
+  key_users              = ["arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c:role/user"]
+  key_service_users      = ["arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c:role/ec2-role"]
+
+  aliases = ["one", "foo/bar"]
+  computed_aliases = {
+    ex = {
+      name = "keykms"
+    }
+  }
+  aliases_use_name_prefix = true
+
+  grants = {
+    lambda = {
+      grantee_principal = "arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c:role/lambda-function"
+      operations        = ["Encrypt", "Decrypt", "GenerateDataKey"]
+      constraints = {
+        encryption_context_equals = {
+          Department = "Finance"
+        }
+      }
+    }
+  }
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
 }
-
