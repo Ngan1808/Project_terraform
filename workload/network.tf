@@ -86,8 +86,8 @@ module "aws_rds" {
 
 module "aws_kms" {
   source = "../modules/aws_kms"
-  kms_key_id                       = "494abfbe-6d50-48e4-beae-dac96a1a9ee1"
-  kms_key_arn                      = "arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c"
+  kms_key_id                       = ""
+  kms_key_arn                      = ""
 
   description             = "Complete key showing various configurations available"
   deletion_window_in_days = 7
@@ -96,10 +96,10 @@ module "aws_kms" {
   key_usage               = "ENCRYPT_DECRYPT"
   multi_region            = false
 
-  key_owners             = ["arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c:role/owner"]
-  key_administrators     = ["arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c:role/admin"]
-  key_users              = ["arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c:role/user"]
-  key_service_users      = ["arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c:role/ec2-role"]
+  key_owners             = [""]
+  key_administrators     = [""]
+  key_users              = [""]
+  key_service_users      = [""]
 
   aliases = ["one", "foo/bar"]
   computed_aliases = {
@@ -111,7 +111,7 @@ module "aws_kms" {
 
   grants = {
     lambda = {
-      grantee_principal = "arn:aws:kms:us-east-1:992382486985:key/f28c53bb-dd5b-4e59-8df5-c9da3d41955c:role/lambda-function"
+      grantee_principal = ""
       operations        = ["Encrypt", "Decrypt", "GenerateDataKey"]
       constraints = {
         encryption_context_equals = {
